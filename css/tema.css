@@ -1,0 +1,1371 @@
+/* ============================================================
+   tema.css — estilo visual general (referencias del equipo):
+   paneles grandes y muy redondeados sobre un fondo pastel, tarjetas
+   suaves con sombras difusas, campos y botones en píldora, e
+   ilustraciones de paisaje por capas. Usa solo la paleta oficial.
+   Se carga al final para ajustar todo sin tocar la estructura.
+   ============================================================ */
+
+:root {
+  /* Fondo pastel: durazno (coral suave) → marfil → salvia suave */
+  --fondo-pantalla: linear-gradient(160deg, #FDE4D7 0%, #FFF8ED 48%, #E3EFEA 100%) fixed;
+  --panel: #FFF8ED;
+  --radio-panel: 32px;
+  --radio-tarjeta: 24px;
+  --sombra-panel: 0 18px 50px rgba(1, 30, 65, 0.1);
+  --sombra-tarjeta: 0 10px 28px rgba(1, 30, 65, 0.08);
+  --sombra-suave: var(--sombra-tarjeta);
+  --sombra-chica: 0 4px 14px rgba(1, 30, 65, 0.07);
+
+  /* Estados: amarillo = desabastecido, rojo = urgente */
+  --color-desabastecido: #F2C14E;
+  --color-desabastecido-fondo: #FFF3CF;
+}
+
+body {
+  background: var(--fondo-pantalla);
+  min-height: 100vh;
+}
+
+/* --- Cada pantalla es un panel grande y redondeado (como la referencia) --- */
+.vista:not(.vista-3d) {
+  box-sizing: border-box;
+  width: calc(100% - 2.5rem);
+  margin: 1.25rem auto;
+  padding: 1.75rem 1.75rem 2rem;
+  border-radius: var(--radio-panel);
+  background: var(--panel);
+  box-shadow: var(--sombra-panel);
+  min-height: calc(100vh - 2.5rem);
+}
+
+@media (max-width: 600px) {
+  .vista:not(.vista-3d) {
+    width: calc(100% - 1rem);
+    margin: 0.5rem auto;
+    padding: 1.1rem 1rem 1.5rem;
+    border-radius: 24px;
+    min-height: calc(100vh - 1rem);
+  }
+}
+
+/* --- Tarjetas suaves, sin bordes duros --- */
+.tarjeta,
+.tarjeta-entrada,
+.centro-tarjeta,
+.menu-admin__opcion,
+.bandeja__lector,
+.bandeja__item {
+  border-radius: var(--radio-tarjeta);
+  box-shadow: var(--sombra-tarjeta);
+}
+
+.tarjeta {
+  background: #FFFFFF;
+  border: none;
+}
+
+/* Opciones del menú del administrador como mosaicos pastel */
+.menu-admin__opcion {
+  border: none;
+}
+
+.menu-admin__opcion:nth-child(1) { background: #FDE4D7; }
+.menu-admin__opcion:nth-child(2) { background: #FFF3CF; }
+.menu-admin__opcion:nth-child(3) { background: #E3EFEA; }
+
+.menu-admin__icono {
+  background: rgba(255, 255, 255, 0.75);
+  border-radius: 18px;
+}
+
+/* Tarjetas de perfil (pantalla 2) en tonos pastel */
+.tarjeta-entrada--donador {
+  background: linear-gradient(160deg, #FFFFFF 0%, #FDE4D7 140%);
+}
+
+.perfiles .tarjeta-entrada:not(.tarjeta-entrada--donador) {
+  background: linear-gradient(160deg, #FFFFFF 0%, #E3EFEA 140%);
+}
+
+/* --- Botones y campos en píldora --- */
+.boton,
+.boton-principal,
+.boton-contorno,
+.boton-inicio {
+  border-radius: 999px;
+}
+
+.boton {
+  box-shadow: 0 8px 18px rgba(204, 1, 0, 0.18);
+}
+
+.boton--secundario {
+  box-shadow: none;
+}
+
+.campo input,
+.campo-entrada input,
+.buscador input,
+.campo__select {
+  border-radius: 999px;
+  padding-left: 1.1rem;
+}
+
+.campo input:focus,
+.campo-entrada input:focus,
+.buscador input:focus,
+.campo__select:focus {
+  border-color: var(--color-petroleo);
+  box-shadow: 0 0 0 4px rgba(134, 181, 169, 0.35);
+  outline: none;
+}
+
+.buscador input {
+  background: #FFFFFF;
+  border: 2px solid var(--color-arena);
+}
+
+/* --- Bienvenida: el gato sobre un paisaje ilustrado --- */
+.hero-ilustracion {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 440px);
+  aspect-ratio: 400 / 330;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: var(--sombra-tarjeta);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.hero-ilustracion .paisaje {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.bienvenida-inicio .hero-ilustracion .mascota {
+  position: relative;
+  width: 58%;
+  margin-bottom: -4%;
+}
+
+/* --- Login dividido: ilustración a la izquierda, formulario a la derecha --- */
+.login-dividido {
+  display: grid;
+  width: 100%;
+  max-width: 860px;
+  border-radius: var(--radio-panel);
+  overflow: hidden;
+  background: #FFFFFF;
+  box-shadow: var(--sombra-panel);
+}
+
+@media (min-width: 760px) {
+  .login-dividido {
+    grid-template-columns: 1fr 1.05fr;
+  }
+}
+
+.login-dividido__arte {
+  position: relative;
+  min-height: 180px;
+  background: #E3EFEA;
+}
+
+.login-dividido__arte .paisaje {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.login-dividido__bienvenida {
+  position: absolute;
+  top: 22%;
+  left: 0;
+  right: 0;
+  margin: 0;
+  text-align: center;
+  color: #426D8C !important;
+  font-weight: 800 !important;
+  font-size: 1.4rem;
+  letter-spacing: 0.35em;
+}
+
+.login-dividido .tarjeta-entrada {
+  max-width: none;
+  border-radius: 0;
+  box-shadow: none;
+  background: #FFFFFF;
+}
+
+/* --- Map: estados con colores claros (rojo urgente, amarillo desabastecido) --- */
+.punto--desabastecido,
+.punto-estado--desabastecido {
+  background: var(--color-desabastecido);
+}
+
+.mapa3d__lista .centro-tarjeta:not(.centro-tarjeta--urgente) {
+  border-left-color: var(--color-desabastecido);
+}
+
+.centro-tarjeta__badge--desabastecido {
+  background: var(--color-desabastecido-fondo);
+  color: var(--color-azul);
+}
+
+/* Burbuja del gato en el mapa: explicación de los colores y cercanos */
+.gato-mapa__principal {
+  display: block;
+}
+
+.gato-mapa__colores {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  margin-top: 0.45rem;
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--color-azul);
+}
+
+.gato-mapa__colores > span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.gato-mapa__cercanos {
+  display: block;
+  margin-top: 0.45rem;
+  padding-top: 0.45rem;
+  border-top: 1px dashed rgba(1, 30, 65, 0.25);
+  font-weight: 600;
+  font-size: 0.82rem;
+  color: var(--color-petroleo);
+}
+
+.mapa3d__gato {
+  max-width: min(420px, calc(100% - 1.5rem));
+}
+
+.mapa3d__gato--urgente .gato-mapa__colores,
+.mapa3d__gato--urgente .gato-mapa__cercanos {
+  color: var(--color-azul);
+}
+
+.mapa3d__gato--urgente .gato-guia__globo p::before {
+  content: none;
+}
+
+/* --- Ficha del centro: etiqueta grande y lista de lo que necesitan --- */
+.estado-grande {
+  margin: 1rem 0 0.25rem;
+  padding: 0.5em 1.4em;
+  border-radius: 999px;
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+}
+
+.estado-grande--urgente {
+  background: var(--color-rosa-alerta);
+  color: var(--color-rojo-profundo);
+}
+
+.estado-grande--desabastecido {
+  background: var(--color-desabastecido-fondo);
+  color: var(--color-azul);
+  border: 3px solid var(--color-desabastecido);
+}
+
+.necesidades {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 1rem 1.1rem;
+  border-radius: 20px;
+  background: #E3EFEA;
+  text-align: left;
+}
+
+.necesidades__titulo {
+  margin: 0 0 0.6rem;
+  font-size: 1.05rem;
+}
+
+.necesidades__lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.necesidades__lista li {
+  padding: 0.35em 0.9em;
+  border-radius: 999px;
+  background: #FFFFFF;
+  color: var(--color-azul);
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(1, 30, 65, 0.08);
+}
+
+/* --- Pre-registro: el gato explica por qué importa la donación --- */
+.prerregistro__gato {
+  width: 100%;
+  max-width: 560px;
+  margin: 0 auto 1rem;
+}
+
+.prerregistro__gato .gato-guia__globo {
+  background: #FFF3CF;
+}
+
+.prerregistro-listo__sub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 24px;
+  background: #E3EFEA;
+}
+
+.prerregistro-listo__figura img,
+.prerregistro-listo__figura svg {
+  width: 140px;
+  height: 140px;
+}
+
+.prerregistro-listo__sub-nombre {
+  margin: 0;
+  color: var(--color-azul) !important;
+  font-size: clamp(1.8rem, 7vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.prerregistro-listo__sub-centro {
+  margin: 0;
+  color: var(--color-texto-suave);
+  font-weight: 600;
+}
+
+/* --- Administrador: estados (amarillo desabastecido, salvia alcanza) --- */
+:root {
+  --estado-desabastecido: var(--color-desabastecido);
+  --estado-desabastecido-fondo: var(--color-desabastecido-fondo);
+  --estado-medio: #86B5A9;
+  --estado-medio-fondo: #E3EFEA;
+}
+
+/* Editor de "¿Qué necesitan exactamente?" */
+.necesidades-editor {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  margin-top: 0.6rem;
+  padding: 0.7rem;
+  border-radius: 18px;
+  background: #FFF6E6;
+  box-shadow: 0 2px 6px rgba(110, 50, 15, 0.2);
+  text-align: left;
+}
+
+.necesidades-editor label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--color-azul);
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.necesidades-editor__lista {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin: 0 0 0.4rem;
+  padding: 0;
+  list-style: none;
+}
+
+.necesidades-editor__lista:empty {
+  display: none;
+}
+
+.necesidades-editor__lista li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.15em 0.2em 0.15em 0.75em;
+  border-radius: 999px;
+  background: #FFFFFF;
+  color: var(--color-azul);
+  font-weight: 700;
+  font-size: 0.85rem;
+  box-shadow: 0 1px 4px rgba(1, 30, 65, 0.1);
+}
+
+.necesidades-editor__lista button {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-rojo-profundo);
+  font-size: 1.1rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.necesidades-editor__lista button:hover {
+  background: var(--color-rosa-alerta);
+}
+
+.necesidades-editor__campo {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.5rem 1rem;
+  border: 2px solid var(--color-arena);
+  border-radius: 999px;
+  background: #FFFFFF;
+  font-family: var(--fuente-texto);
+  font-size: 0.95rem;
+}
+
+.necesidades-editor__campo:focus {
+  outline: none;
+  border-color: var(--color-petroleo);
+  box-shadow: 0 0 0 3px rgba(134, 181, 169, 0.35);
+}
+
+.necesidades-editor__ayuda {
+  margin: 0.3rem 0 0;
+  color: var(--color-texto-suave);
+  font-size: 0.75rem;
+}
+
+.mueble .seccion-nivel {
+  min-height: 0;
+}
+
+/* El nombre del centro no se monta debajo de su etiqueta de estado */
+.mapa3d__lista .centro-tarjeta__nombre {
+  padding-right: 6.8rem;
+}
+
+/* ===================================================================
+   Tema v2 — más orgánico: sin marcos alrededor de las pantallas,
+   fondo con manchas de color suaves y colinas, botones con volumen
+   (tipo arcilla, como los íconos 3D del moodboard) y tarjetas
+   translúcidas sin bordes.
+   =================================================================== */
+
+:root {
+  --fondo-pantalla:
+    radial-gradient(ellipse 55% 45% at 0% 0%, rgba(246, 119, 81, 0.28) 0%, rgba(246, 119, 81, 0) 70%),
+    radial-gradient(ellipse 45% 40% at 100% 8%, rgba(253, 215, 148, 0.55) 0%, rgba(253, 215, 148, 0) 70%),
+    radial-gradient(ellipse 60% 45% at 100% 100%, rgba(134, 181, 169, 0.35) 0%, rgba(134, 181, 169, 0) 70%),
+    radial-gradient(ellipse 50% 40% at 0% 100%, rgba(253, 215, 148, 0.35) 0%, rgba(253, 215, 148, 0) 70%),
+    #FFF8ED;
+  --vidrio: rgba(255, 255, 255, 0.72);
+}
+
+body {
+  background: var(--fondo-pantalla);
+  background-attachment: fixed;
+}
+
+/* Colinas suaves al pie de todas las pantallas (decoración) */
+body::after {
+  content: "";
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 22vh;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 220' preserveAspectRatio='none'%3E%3Cpath d='M0 120 C240 60 420 90 640 120 C880 152 1080 70 1440 100 L1440 220 L0 220Z' fill='%23CFE3DB'/%3E%3Cpath d='M0 165 C300 120 520 150 760 170 C1000 190 1220 130 1440 150 L1440 220 L0 220Z' fill='%23A9CFC2' fill-opacity='.75'/%3E%3C/svg%3E") bottom / 100% 100% no-repeat;
+  opacity: 0.8;
+}
+
+/* Sin el recuadro que encerraba cada pantalla */
+.vista:not(.vista-3d) {
+  width: auto;
+  margin: 0 auto;
+  padding: 1.5rem 1.25rem 3rem;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  min-height: 100vh;
+}
+
+@media (max-width: 600px) {
+  .vista:not(.vista-3d) {
+    width: auto;
+    margin: 0;
+    padding: 1rem 0.9rem 2.5rem;
+    border-radius: 0;
+    min-height: 100vh;
+  }
+}
+
+/* --- Botones con volumen (arcilla) --- */
+.boton,
+.boton-principal {
+  border: none;
+  background: linear-gradient(180deg, #E5251C 0%, #CC0100 60%, #B30000 100%);
+  color: #FFFFFF;
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -5px 0 rgba(110, 0, 0, 0.28),
+    0 10px 22px rgba(204, 1, 0, 0.28);
+  transition: transform 150ms ease, box-shadow 150ms ease, filter 150ms ease;
+}
+
+.boton:hover,
+.boton-principal:hover {
+  background: linear-gradient(180deg, #D11810 0%, #A5121A 100%);
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 2px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -5px 0 rgba(90, 0, 0, 0.3),
+    0 14px 26px rgba(165, 18, 26, 0.3);
+}
+
+.boton:active,
+.boton-principal:active {
+  transform: translateY(2px);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.25),
+    inset 0 -2px 0 rgba(90, 0, 0, 0.3),
+    0 4px 10px rgba(165, 18, 26, 0.25);
+}
+
+.boton:disabled {
+  background: #E8E1D5;
+  color: #6E655D;
+  box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.08);
+  transform: none;
+}
+
+/* Secundarios: blancos con volumen y texto azul petróleo */
+.boton--secundario,
+.boton-contorno,
+.boton-inicio,
+.estanteria3d__volver,
+.boton-estanteria,
+.chip-zona {
+  border: none !important;
+  background: #FFFFFF;
+  color: var(--color-petroleo);
+  box-shadow:
+    inset 0 -4px 0 rgba(66, 109, 140, 0.18),
+    0 8px 18px rgba(1, 30, 65, 0.1);
+  transition: transform 150ms ease, box-shadow 150ms ease, background 150ms ease, color 150ms ease;
+}
+
+.boton--secundario:hover,
+.boton-contorno:hover,
+.boton-inicio:hover,
+.estanteria3d__volver:hover,
+.boton-estanteria:hover,
+.chip-zona:hover {
+  background: #EEF5F2;
+  color: var(--color-azul);
+  transform: translateY(-2px);
+}
+
+.chip-zona[aria-pressed="true"] {
+  background: linear-gradient(180deg, #5683A3 0%, #426D8C 100%);
+  color: #FFFFFF;
+  box-shadow: inset 0 -4px 0 rgba(1, 30, 65, 0.25), 0 8px 18px rgba(66, 109, 140, 0.3);
+}
+
+.boton-atras,
+.enlace-volver {
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  text-decoration: none;
+}
+
+/* --- Tarjetas translúcidas, sin bordes ni marcos --- */
+.tarjeta,
+.tarjeta-entrada,
+.centro-tarjeta,
+.menu-admin__opcion,
+.bandeja__lector,
+.bandeja__item,
+.login-dividido {
+  background: var(--vidrio);
+  backdrop-filter: blur(10px);
+  border: none !important;
+  box-shadow: 0 12px 34px rgba(1, 30, 65, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.tarjeta-entrada--donador {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.85) 0%, rgba(253, 228, 215, 0.9) 100%);
+}
+
+.perfiles .tarjeta-entrada:not(.tarjeta-entrada--donador) {
+  background: linear-gradient(160deg, rgba(255, 255, 255, 0.85) 0%, rgba(227, 239, 234, 0.9) 100%);
+}
+
+.menu-admin__opcion:nth-child(1) { background: rgba(253, 228, 215, 0.85); }
+.menu-admin__opcion:nth-child(2) { background: rgba(255, 243, 207, 0.9); }
+.menu-admin__opcion:nth-child(3) { background: rgba(227, 239, 234, 0.9); }
+
+/* Cajas internas que sobraban: sin bordes */
+.prerregistro__resumen,
+.llegar__datos,
+.formulario__categoria {
+  border: none !important;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 0 0 1px rgba(1, 30, 65, 0.04);
+}
+
+/* Campos rellenos suaves (sin borde duro) */
+.campo input,
+.campo-entrada input,
+.buscador input,
+.campo__select,
+.necesidades-editor__campo {
+  border: 2px solid transparent;
+  background: #FFFFFF;
+  box-shadow: inset 0 2px 4px rgba(1, 30, 65, 0.06), 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* Mapa y escena con esquinas más orgánicas */
+.mapa3d {
+  border-radius: 36px;
+  box-shadow: 0 16px 40px rgba(1, 30, 65, 0.12);
+}
+
+/* --- Bienvenida: el gato 3D libre, sin recuadro --- */
+.bienvenida-inicio .mascota {
+  position: relative;
+  width: min(70vw, 340px);
+}
+
+.bienvenida-inicio .mascota::after {
+  /* sombra en el piso */
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 2%;
+  height: 7%;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(1, 30, 65, 0.18), rgba(1, 30, 65, 0));
+  z-index: -1;
+}
+
+/* --- Gato 3D --- */
+.gato3d {
+  position: relative;
+}
+
+.gato3d__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.gato3d--listo > .gato3d__respaldo {
+  visibility: hidden;
+}
+
+.gato3d--listo {
+  animation: none !important; /* las animaciones las hace el 3D */
+}
+
+.mascota__figura.gato3d {
+  aspect-ratio: 240 / 300;
+}
+
+/* Casa 3D en la ficha del centro */
+.ficha-centro__foto--casa {
+  width: 150px;
+  height: 150px;
+  background: transparent;
+}
+
+.ficha-centro__foto .casa3d {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 10px rgba(1, 30, 65, 0.18));
+}
+
+.boton-atras,
+.enlace-volver {
+  display: inline-flex;
+  align-self: flex-start;
+  width: auto;
+}
+
+/* ===================================================================
+   Tema v3 — según las referencias: tonos durazno cálidos, tarjetas
+   blancas con ilustración, botones planos suaves, mapa con tarjetas
+   deslizables encima y un escenario con profundidad para el gato.
+   =================================================================== */
+
+:root {
+  --durazno: #FBE3D2;
+  --durazno-claro: #FFF1E7;
+  --sombra-calida: 0 14px 30px rgba(204, 110, 70, 0.16);
+  --fondo-pantalla:
+    radial-gradient(ellipse 70% 55% at 50% 35%, #FFF9F2 0%, rgba(255, 249, 242, 0) 70%),
+    radial-gradient(ellipse 60% 50% at 0% 0%, rgba(246, 119, 81, 0.22) 0%, rgba(246, 119, 81, 0) 70%),
+    radial-gradient(ellipse 55% 45% at 100% 100%, rgba(134, 181, 169, 0.22) 0%, rgba(134, 181, 169, 0) 70%),
+    linear-gradient(180deg, #FFF3EA 0%, #FBE3D2 100%);
+}
+
+/* Sin ondas al pie */
+body::after {
+  display: none;
+}
+
+/* --- Botones planos y suaves (como "Book Now" de la referencia) --- */
+.boton,
+.boton-principal {
+  background: #CC0100;
+  box-shadow: 0 10px 22px rgba(204, 1, 0, 0.25);
+  border-radius: 18px;
+}
+
+.boton:hover,
+.boton-principal:hover {
+  background: #A5121A;
+  box-shadow: 0 12px 26px rgba(165, 18, 26, 0.28);
+}
+
+.boton:active,
+.boton-principal:active {
+  box-shadow: 0 4px 10px rgba(165, 18, 26, 0.25);
+}
+
+.boton--secundario,
+.boton-contorno,
+.boton-inicio,
+.estanteria3d__volver,
+.boton-estanteria {
+  background: var(--durazno-claro);
+  color: var(--color-petroleo);
+  border-radius: 18px;
+  box-shadow: none;
+}
+
+.boton--secundario:hover,
+.boton-contorno:hover,
+.boton-inicio:hover,
+.estanteria3d__volver:hover,
+.boton-estanteria:hover {
+  background: var(--durazno);
+  color: var(--color-azul);
+}
+
+.chip-zona {
+  background: #FFFFFF;
+  box-shadow: 0 6px 14px rgba(204, 110, 70, 0.12);
+}
+
+/* --- Tarjetas blancas con sombra cálida --- */
+.tarjeta,
+.tarjeta-entrada,
+.centro-tarjeta,
+.menu-admin__opcion,
+.bandeja__lector,
+.bandeja__item,
+.login-dividido {
+  background: #FFFFFF;
+  backdrop-filter: none;
+  border-radius: 28px;
+  box-shadow: var(--sombra-calida);
+}
+
+/* Tarjetas de inicio con ilustración arriba (como la referencia) */
+.perfiles .tarjeta-entrada {
+  padding: 0 0 1.4rem;
+  overflow: hidden;
+  background: #FFFFFF !important;
+}
+
+.perfiles .tarjeta-entrada > :not(.tarjeta-ilustracion) {
+  margin-left: 1.4rem;
+  margin-right: 1.4rem;
+}
+
+.perfiles .tarjeta-entrada > .boton-principal,
+.perfiles .tarjeta-entrada > .boton-contorno {
+  width: calc(100% - 2.8rem);
+}
+
+.tarjeta-ilustracion {
+  position: relative;
+  width: 100%;
+  height: 120px;
+  margin-bottom: 0.6rem;
+  overflow: hidden;
+}
+
+.tarjeta-ilustracion .paisaje {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.tarjeta-ilustracion--admin {
+  filter: hue-rotate(-18deg) saturate(0.9);
+}
+
+/* --- Escenario con profundidad para el gato (pantalla principal) --- */
+.bienvenida-inicio .mascota {
+  isolation: isolate;
+}
+
+.bienvenida-inicio .mascota::before {
+  /* luz cálida de fondo, como una ventana desenfocada */
+  content: "";
+  position: absolute;
+  left: -20%;
+  right: -20%;
+  top: 2%;
+  bottom: 12%;
+  z-index: -2;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9) 0 6%, rgba(255, 255, 255, 0) 7%),
+    radial-gradient(circle at 75% 22%, rgba(253, 215, 148, 0.7) 0 5%, rgba(253, 215, 148, 0) 6%),
+    radial-gradient(circle at 82% 60%, rgba(134, 181, 169, 0.45) 0 7%, rgba(134, 181, 169, 0) 8%),
+    radial-gradient(ellipse at 50% 45%, #FFE2CC 0%, #FBD1B5 45%, rgba(251, 209, 181, 0) 72%);
+  filter: blur(2px);
+}
+
+.bienvenida-inicio .mascota::after {
+  /* alfombra redonda bajo el gato */
+  left: 4%;
+  right: 4%;
+  bottom: -2%;
+  height: 16%;
+  z-index: -1;
+  background:
+    radial-gradient(closest-side, rgba(1, 30, 65, 0.16), rgba(1, 30, 65, 0) 90%) center 30% / 60% 70% no-repeat,
+    repeating-radial-gradient(ellipse at center, #F6A98A 0 7%, #FDE4D7 7% 14%);
+  border-radius: 50%;
+  box-shadow: 0 10px 24px rgba(204, 110, 70, 0.25);
+}
+
+/* --- Mapa: gato fuera del mapa, tarjetas deslizables sobre su borde --- */
+.mapa-gato.mapa3d__gato {
+  position: static;
+  max-width: 640px;
+  pointer-events: auto;
+}
+
+.mapa-gato .gato-guia__imagen {
+  width: 84px;
+  height: 104px;
+}
+
+.mapa-filtros {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.mapa3d {
+  border-radius: 32px;
+  box-shadow: var(--sombra-calida);
+}
+
+.mapa3d__lista--carrusel {
+  position: relative;
+  z-index: 4;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 0.9rem;
+  margin: -96px 0 0 !important;
+  padding: 0 1rem 1rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+
+.mapa3d__lista--carrusel::-webkit-scrollbar {
+  display: none;
+}
+
+.mapa3d__lista--carrusel > li {
+  flex: 0 0 min(78%, 290px);
+  scroll-snap-align: start;
+}
+
+.mapa3d[data-estado="sin-mapa"] + .mapa3d__lista--carrusel {
+  margin-top: 0 !important;
+}
+
+.mapa3d__lista--carrusel .centro-tarjeta {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  grid-template-rows: auto auto auto;
+  align-items: center;
+  column-gap: 0.8rem;
+  height: 100%;
+  padding: 0.9rem 1rem;
+  border-left: none !important;
+  text-align: left;
+}
+
+.centro-tarjeta__casa {
+  grid-column: 1;
+  grid-row: 1 / 4;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  background: var(--durazno-claro);
+  font-size: 1.8rem;
+}
+
+.centro-tarjeta__casa .casa3d {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.mapa3d__lista--carrusel .centro-tarjeta__nombre {
+  padding-right: 0 !important;
+  font-size: 0.98rem;
+}
+
+.mapa3d__lista--carrusel .centro-tarjeta__badge {
+  position: static;
+  justify-self: start;
+  grid-column: 2;
+  grid-row: 1;
+  margin: 0 0 0.25rem;
+}
+
+.mapa3d__lista--carrusel .centro-tarjeta__nombre { grid-column: 2; grid-row: 2; }
+
+.mapa3d__lista--carrusel .centro-tarjeta__zona {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+/* ===================================================================
+   Gato que se asoma de medio cuerpo por el borde de la pantalla
+   (mapa y pre-registro), con su mensaje al lado. Queda fijo y no
+   tapa el mapa.
+   =================================================================== */
+
+.gato-asoma,
+.mapa3d__gato.gato-asoma,
+.prerregistro__gato.gato-asoma {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  top: auto;
+  right: auto;
+  z-index: 30;
+  width: auto;
+  max-width: min(600px, 100vw);
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+.gato-asoma .gato-guia {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 0;
+}
+
+.gato-asoma .gato-guia__imagen,
+.mapa3d__gato.gato-asoma .gato-guia__imagen {
+  flex-shrink: 0;
+  width: 170px;
+  height: 160px;
+  margin: 0 -6px -4px -14px;
+  overflow: hidden;
+  animation: gato-asomarse 600ms cubic-bezier(0.3, 1.3, 0.5, 1) both;
+}
+
+@keyframes gato-asomarse {
+  from { transform: translateY(70%); }
+  to { transform: none; }
+}
+
+/* Respaldo 2D: también de medio cuerpo (se recorta la mitad de abajo) */
+.gato-asoma .gato3d__respaldo {
+  width: 100%;
+  height: 200%;
+  object-fit: contain;
+  object-position: top center;
+}
+
+.gato-asoma .gato-guia__globo {
+  margin: 0 0.75rem 96px 0;
+  max-width: min(360px, calc(100vw - 180px));
+  pointer-events: auto;
+  box-shadow: 0 12px 28px rgba(204, 110, 70, 0.2);
+}
+
+.gato-asoma .gato-guia__globo p {
+  font-size: 0.92rem;
+}
+
+/* Espacio abajo para que el gato no tape el contenido */
+.vista-mapa3d,
+.vista-prerregistro {
+  padding-bottom: 220px !important;
+}
+
+@media (max-width: 600px) {
+  .gato-asoma .gato-guia__imagen,
+  .mapa3d__gato.gato-asoma .gato-guia__imagen {
+    width: 120px;
+    height: 116px;
+    margin-left: -10px;
+  }
+  .gato-asoma .gato-guia__globo {
+    margin-bottom: 64px;
+    max-width: calc(100vw - 125px);
+  }
+  .gato-asoma .gato-guia__globo p {
+    font-size: 0.8rem;
+  }
+  .gato-asoma .gato-mapa__colores,
+  .gato-asoma .gato-mapa__cercanos {
+    font-size: 0.74rem;
+  }
+  .vista-mapa3d,
+  .vista-prerregistro {
+    padding-bottom: 200px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gato-asoma .gato-guia__imagen { animation: none; }
+}
+
+/* Tarjetas de centros (debajo del mapa): casita a la izquierda */
+.mapa3d__lista .centro-tarjeta {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  grid-template-rows: auto auto auto;
+  align-items: center;
+  column-gap: 0.9rem;
+  padding: 0.85rem 1rem;
+  border-left: none !important;
+  text-align: left;
+}
+
+.mapa3d__lista .centro-tarjeta__casa { grid-column: 1; grid-row: 1 / 4; width: 60px; height: 60px; }
+.mapa3d__lista .centro-tarjeta__badge { position: static; grid-column: 2; grid-row: 1; justify-self: start; margin: 0 0 0.25rem; }
+.mapa3d__lista .centro-tarjeta__nombre { grid-column: 2; grid-row: 2; padding-right: 0 !important; }
+.mapa3d__lista .centro-tarjeta__zona { grid-column: 2; grid-row: 3; }
+
+/* Mapa: el gato sale del borde derecho de la pantalla, al lado del mapa */
+.mapa-envoltura {
+  position: relative;
+}
+
+.mapa3d__gato.gato-asoma--lado {
+  position: absolute;
+  top: 12%;
+  bottom: auto;
+  left: auto;
+  right: calc(50% - 50vw);
+  z-index: 6;
+}
+
+.gato-asoma--lado .gato-guia {
+  flex-direction: row-reverse;
+}
+
+.gato-asoma--lado .gato-guia__imagen,
+.mapa3d__gato.gato-asoma--lado .gato-guia__imagen {
+  margin: 0 -34px 0 -6px;
+  animation-name: gato-asomarse-lado;
+}
+
+@keyframes gato-asomarse-lado {
+  from { transform: translateX(80%); }
+  to { transform: none; }
+}
+
+.gato-asoma--lado .gato-guia__globo {
+  margin: 0 0 0 0;
+  align-self: center;
+  max-width: min(320px, 34vw);
+}
+
+/* Celular: no hay espacio al lado; sale del borde derecho, bajo el mapa */
+@media (max-width: 760px) {
+  .mapa3d__gato.gato-asoma--lado {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin: 0.6rem calc(50% - 50vw) 0 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+  .gato-asoma--lado .gato-guia__globo {
+    max-width: calc(100vw - 150px);
+  }
+}
+
+.vista-mapa3d {
+  padding-bottom: 3rem !important;
+}
+
+/* Computador: globo encima del gato, ambos en el espacio al lado del mapa */
+@media (min-width: 761px) {
+  .gato-asoma--lado .gato-guia {
+    flex-direction: column-reverse;
+    align-items: flex-end;
+    gap: 0.4rem;
+  }
+  .gato-asoma--lado .gato-guia__globo {
+    align-self: flex-end;
+    margin-right: 0.75rem;
+    max-width: max(190px, calc((100vw - 100%) / 2 - 16px));
+  }
+  .gato-asoma--lado .gato-guia__imagen,
+  .mapa3d__gato.gato-asoma--lado .gato-guia__imagen {
+    margin: 0 -40px 0 0;
+  }
+  .gato-asoma--lado .gato-guia__globo p {
+    font-size: 0.85rem;
+  }
+}
+
+/* Gato del mapa: cuerpo entero, sin recortes ni temblores */
+.mapa3d__gato--urgente .gato-guia__imagen {
+  animation: none !important;
+}
+
+.gato-asoma--lado .gato-guia__imagen,
+.mapa3d__gato.gato-asoma--lado .gato-guia__imagen {
+  width: 130px !important;
+  height: 165px !important;
+  margin: 0 0.4rem 0 0 !important;
+  overflow: visible !important;
+  animation: none !important;
+}
+
+.mapa3d__gato.gato-asoma--lado {
+  right: max(0.5rem, calc(50% - 50vw + 0.5rem));
+}
+
+@media (max-width: 760px) {
+  .gato-asoma--lado .gato-guia__imagen,
+  .mapa3d__gato.gato-asoma--lado .gato-guia__imagen {
+    width: 96px !important;
+    height: 122px !important;
+  }
+  .mapa3d__gato.gato-asoma--lado {
+    margin-right: 0;
+  }
+}
+
+.mapa3d__ubicacion {
+  flex-wrap: wrap;
+}
+
+/* Modo "Marcar dónde estoy": cursor de mira sobre el mapa */
+.mapa3d__canvas--marcando {
+  cursor: crosshair !important;
+  outline: 4px dashed var(--color-petroleo);
+  outline-offset: -8px;
+}
+
+/* ===================================================================
+   Mensaje del gato en el mapa: compacto y en su propia columna, al
+   lado del mapa (nunca encima).
+   =================================================================== */
+.gato-asoma--lado .gato-guia__globo {
+  padding: 0.6rem 0.8rem;
+  border-width: 2px;
+  border-radius: 14px;
+}
+
+.gato-asoma--lado .gato-guia__globo p,
+.gato-asoma--lado .gato-mapa__principal {
+  font-size: 0.85rem !important;
+  line-height: 1.3;
+}
+
+.gato-asoma--lado .gato-mapa__colores {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.6rem;
+  margin-top: 0.35rem;
+  font-size: 0.74rem !important;
+}
+
+.gato-asoma--lado .gato-mapa__cercanos {
+  margin-top: 0.35rem;
+  padding-top: 0.35rem;
+  font-size: 0.74rem !important;
+}
+
+@media (min-width: 761px) {
+  /* Mapa y gato lado a lado: el gato tiene su columna a la derecha */
+  .mapa-envoltura {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 210px;
+    column-gap: 0.75rem;
+    align-items: start;
+  }
+  .mapa-envoltura > .mapa3d {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .mapa3d__gato.gato-asoma--lado {
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: 1rem;
+    right: auto;
+    max-width: 210px;
+  }
+  .gato-asoma--lado .gato-guia {
+    align-items: center;
+  }
+  .gato-asoma--lado .gato-guia__globo {
+    align-self: stretch;
+    max-width: 210px !important;
+    margin: 0 !important;
+  }
+}
+
+@media (max-width: 760px) {
+  /* Celular: gato y mensaje en una fila compacta encima del mapa */
+  .mapa3d__gato.gato-asoma--lado {
+    margin: 0.4rem 0 0.6rem;
+  }
+  .gato-asoma--lado .gato-guia {
+    align-items: center;
+  }
+  .gato-asoma--lado .gato-guia__globo {
+    max-width: calc(100vw - 130px) !important;
+    margin: 0 !important;
+  }
+  .gato-asoma--lado .gato-guia__imagen,
+  .mapa3d__gato.gato-asoma--lado .gato-guia__imagen {
+    width: 80px !important;
+    height: 100px !important;
+  }
+}
+
+/* ===================================================================
+   Campos: color de letra explícito (algunos navegadores con modo
+   oscuro ponían el texto claro sobre fondo blanco y no se veía).
+   =================================================================== */
+input,
+select,
+textarea {
+  color: var(--color-azul) !important;
+  -webkit-text-fill-color: var(--color-azul);
+  caret-color: var(--color-carmin);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #8A8079 !important;
+  -webkit-text-fill-color: #8A8079;
+  opacity: 1;
+}
+
+/* ===================================================================
+   Gestionar insumos: subcategorías alineadas y del mismo tamaño
+   =================================================================== */
+.zoom-capa__panel .secciones-insumo {
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+  gap: 12px;
+}
+
+/* Ninguna se estira a todo el ancho: todas iguales */
+.zoom-capa__panel .mueble__cuerpo > :last-child:nth-child(odd) {
+  grid-column: auto !important;
+}
+
+.zoom-capa__panel .seccion-nivel {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 0.6rem;
+  min-height: 0;
+  height: 100%;
+  padding: 0.9rem 0.8rem 1.3rem;
+}
+
+.zoom-capa__panel .seccion-nivel .hueco__etiqueta {
+  align-self: center;
+}
+
+/* La repisa de cantidad ocupa siempre el mismo alto, justo bajo el nombre */
+.zoom-capa__panel .seccion-nivel__repisa {
+  margin-top: 0;
+  height: 54px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.zoom-capa__panel .seccion-nivel__repisa .nivel__productos {
+  flex-wrap: nowrap;
+  min-height: 0;
+}
+
+.zoom-capa__panel .seccion-nivel__repisa .producto3d,
+.zoom-capa__panel .seccion-nivel__repisa .nivel__item--vacio {
+  width: 40px !important;
+  height: 40px !important;
+}
+
+/* El editor de palabras llena el resto: todas terminan a la misma altura */
+.zoom-capa__panel .necesidades-editor {
+  flex: 1;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.zoom-capa__panel .necesidades-editor__ayuda {
+  margin-top: auto;
+  padding-top: 0.3rem;
+}
+
+.zoom-capa__panel .necesidades-editor label {
+  font-size: 0.85rem;
+}
+
+@media (max-width: 600px) {
+  .zoom-capa__panel .secciones-insumo {
+    grid-template-columns: 1fr !important;
+    grid-auto-rows: auto;
+  }
+}
